@@ -14,7 +14,7 @@ export function applyPagination(list, { page = 1, limit = 10, sort = "desc" }) {
 
   return {
     list: paginatedList,
-    currentPage: page,
+    currentPage: parseInt(page),
     totalPages: Math.ceil(list.length / limit),
   };
 }

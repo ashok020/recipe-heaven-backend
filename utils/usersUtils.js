@@ -43,6 +43,7 @@ function isEmailValid(email) {
 
 export function getDecodedUserToken(authHeader) {
   const token = authHeader && authHeader.split(" ")[1];
+  console.log({ token });
   const validated = validateJWT(token);
   if (!validated.error) return validated;
   return null;

@@ -8,6 +8,7 @@ export async function getUser(req, res) {
   if (!user_id) return res.status(400).json({ error: "User not found" });
   try {
     const user = await User.findOne({ _id: user_id });
+    if (!user) return res.status(400).json({ error: "User not found" });
     res.status(200).json({
       username: user.username,
       name: user.name,

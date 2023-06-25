@@ -37,15 +37,18 @@ const recipeSchema = new mongoose.Schema(
         type: String,
         trim: true,
       },
-      image: {
-        data: Buffer,
-        contentType: String,
-      },
+      image: String,
+
       isPublic: {
         type: Boolean,
         default: true,
       },
+      serves: {
+        type: Number,
+        default: 1,
+      },
     },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

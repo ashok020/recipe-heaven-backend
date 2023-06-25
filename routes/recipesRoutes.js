@@ -12,6 +12,7 @@ import {
   deleteComment,
   generateRecipe,
   getComments,
+  generateAndSaveRecipe,
 } from "../controllers/recipesController.js";
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 import { isAuth } from "../middlewares/isAuth.js";
@@ -38,5 +39,6 @@ router.delete(
   isAuth,
   asyncErrorHandler(deleteComment)
 );
+router.post("/generate-save", isAuth, asyncErrorHandler(generateAndSaveRecipe));
 
 export default router;

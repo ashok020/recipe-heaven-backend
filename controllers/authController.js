@@ -3,10 +3,14 @@ import User from "../models/User.js";
 import { generateJWT } from "../utils/jwtUtils.js";
 import { getUseIfExists, getUserFieldsError } from "../utils/usersUtils.js";
 
-console.log(User);
+export async function checkAuth(req, res) {
+  // will come only if the user is authenticated
+  res.status(200).json({ message: "Authorized" });
+}
 
 export async function login(req, res) {
-  const { username, password } = req.body;
+  var { username, password } = req.body;
+  username = username.toLowerCase();
   const validationError = getUserFieldsError({ username, password });
   if (validationError) return res.status(400).json({ error: validationError });
   try {
@@ -28,7 +32,7 @@ export async function login(req, res) {
 }
 
 export async function register(req, res) {
-  const { name, username, email, password, age, gender } = req.body;
+  var { name, username, email, password, age, gender } = req.body;
   const validationError = getUserFieldsError({
     name,
     username,
@@ -37,6 +41,8 @@ export async function register(req, res) {
     age,
     gender,
   });
+  username = username.toLowerCase();
+  email = email.toLowerCase();
   if (validationError) return res.status(400).json({ error: validationError });
   try {
     if (await getUseIfExists(username, email))
