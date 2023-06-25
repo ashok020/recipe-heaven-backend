@@ -1,6 +1,6 @@
-# Recipe Haven Web App Backend
+# Recipe Heaven Web App Backend
 
-This is the backend implementation of the Recipe Haven web application. It provides APIs for user authentication, user registration, fetching recipe data, saving user-created recipes, and generating recipes using Chat GPT.
+This is the backend implementation of the Recipe Heaven web application. It provides APIs for user authentication, user registration, fetching recipe data, saving user-created recipes, and generating recipes using Chat GPT.
 
 #### Created for Ecowiser FSD Task.
 
