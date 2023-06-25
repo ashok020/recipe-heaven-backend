@@ -2,7 +2,13 @@
 
 This is the backend implementation of the Recipe Heaven web application. It provides APIs for user authentication, user registration, fetching recipe data, saving user-created recipes, and generating recipes using Chat GPT.
 
-#### Created for Ecowiser FSD Task.
+Created for Ecowiser FSD Task.
+
+### [Frontend Deployed Link](https://rainbow-brigadeiros-7f3100.netlify.app/)
+
+### [Frontend Repo Link](https://github.com/ashok020/recipe-heaven-frontend)
+
+### [Backend Deployed Link](https://breakable-plum-dalmatian.cyclic.app)
 
 ## Folder Structure
 
@@ -59,3 +65,26 @@ This is the backend implementation of the Recipe Heaven web application. It prov
 - JWT
 - OpenAI API (Chat GPT API)
 - Axios
+
+## Screenshots
+
+- Home Page
+
+  - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/home%20page.png?raw=true)
+
+- Recipe Generate using Chat GPT
+
+  - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/generate.png?raw=true)
+
+- Recipe Search
+
+  - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/search.png)
+
+- Recipe Edit
+
+  - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/edit.png?raw=true)
+
+- Recipe View
+  - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/view.png?raw=true)
+
+-Profile Page - ![Screenshot](https://github.com/ashok020/recipe-heaven-frontend/blob/main/screenshots/profile.png)
