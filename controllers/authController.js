@@ -57,7 +57,7 @@ export async function register(req, res) {
       gender,
     });
     await user.save();
-    console.log("User registered successfully : ", user);
+//    console.log("User registered successfully : ", user);
     res.status(200).json({ message: "Registration successful" });
   } catch (err) {
     console.error("Error occurred during registration:", err);

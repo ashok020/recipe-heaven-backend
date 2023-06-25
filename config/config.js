@@ -4,12 +4,11 @@ dotenv.config();
 export const config = {
   port: process.env.PORT || 3000,
   database: {
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 27017,
-    name: process.env.DB_NAME || "test",
-    username: process.env.DB_USERNAME || "admin",
-    password: process.env.DB_PASSWORD || "password123",
+    name: process.env.DB_NAME || "recipeheaven",
+    MONGO_URI:
+      process.env.MONGO_URI || "mongodb://localhost:27017/recipeheaven",
   },
+
   jwt: {
     secretKey: process.env.JWT_SECRET_KEY || "privateKey",
     expireIn: process.env.JWT_EXPIRE_IN || "1d",
