@@ -6,7 +6,7 @@ import { formatRecipes } from "../utils/formatRecipes.js";
 import { applyPagination } from "../utils/applyPagination.js";
 
 export async function getRecipes(req, res) {
-//  console.log("query: ", req.query);
+  //  console.log("query: ", req.query);
   var {
     search,
     page = 1,
@@ -15,7 +15,7 @@ export async function getRecipes(req, res) {
     my = false,
     liked = false,
   } = req.query;
-  search = search.trim();
+  if (search) search = search.trim();
   const decodedToken = getDecodedUserToken(req.headers.authorization);
   var user_id = null;
   if (decodedToken) user_id = decodedToken._id;
@@ -58,7 +58,7 @@ export async function getRecipes(req, res) {
 
     res.status(200).json(paginatedRecipes);
   } catch (err) {
-//    console.log("Error during getting recipes: ", err);
+    //    console.log("Error during getting recipes: ", err);
     res.status(500).json({ error: "An error occurred while fetching recipes" });
   }
 }
@@ -95,15 +95,15 @@ export async function getRecipe(req, res) {
       commentsCount: recipe.comments.length,
     });
   } catch (err) {
-//    console.log("Erorr during getting recipe ", err);
+    //    console.log("Erorr during getting recipe ", err);
     res.status(500).json({ error: "An error occurred while fetching recipe" });
   }
 }
 
 export async function getComments(req, res) {
-//  console.log("query: ", req.query);
+  //  console.log("query: ", req.query);
   const { id } = req.params;
-//  console.log(id);
+  //  console.log(id);
   const { page = 1, limit = 10, sort = "desc" } = req.query;
   try {
     const recipe = await Recipe.findOne(
@@ -130,7 +130,7 @@ export async function getComments(req, res) {
       .status(200)
       .json({ ...paginatedComments, totalComments: comments.length });
   } catch (err) {
-//    console.log("Error during getting comments: ", err);
+    //    console.log("Error during getting comments: ", err);
     res
       .status(500)
       .json({ error: "An error occurred while fetching comments" });
@@ -138,7 +138,7 @@ export async function getComments(req, res) {
 }
 
 export async function createRecipe(req, res) {
-//  console.log(req.body);
+  //  console.log(req.body);
   const {
     title,
     description,
@@ -176,7 +176,7 @@ export async function createRecipe(req, res) {
       return res
         .status(400)
         .json({ error: "Recipe already exists can't use POST" });
-//    console.log(recipe);
+    //    console.log(recipe);
     const recipeObj = await recipe.save();
     await User.findOneAndUpdate(
       {
@@ -188,10 +188,10 @@ export async function createRecipe(req, res) {
         },
       }
     );
-//    console.log("Recipe created successfully with id : ", recipe.recipeId);
+    //    console.log("Recipe created successfully with id : ", recipe.recipeId);
     res.status(200).json({ message: "recipe created", id: recipe.recipeId });
   } catch (err) {
-//    console.log("Erorr during saving recipe ", err);
+    //    console.log("Erorr during saving recipe ", err);
     res.status(500).json({ error: "An error occurred during recipe creation" });
   }
 }
@@ -226,10 +226,10 @@ export async function updateRecipe(req, res) {
       content.isPublic = !!isPublic;
     if (serves != null || serves != undefined) content.serves = serves;
     await Recipe.findOneAndUpdate({ recipeId: id }, { content: content });
-//    console.log("Recipe updated successfully");
+    //    console.log("Recipe updated successfully");
     res.status(200).json({ message: "Recipe updated" });
   } catch (err) {
-//    console.log("Erorr during updating recipe ", err);
+    //    console.log("Erorr during updating recipe ", err);
     res.status(500).json({ error: "An error occurred while updating recipe" });
   }
 }
@@ -243,7 +243,7 @@ export async function deleteRecipe(req, res) {
       createdBy: user_id,
     });
     if (!recipe) {
-//      console.log("Recipe not found");
+      //      console.log("Recipe not found");
       return res
         .status(400)
         .json({ error: "Recipe not found under this user" });
@@ -257,10 +257,10 @@ export async function deleteRecipe(req, res) {
       }
     );
 
-//    console.log("Recipe deleted successfully");
+    //    console.log("Recipe deleted successfully");
     res.status(200).json({ message: "Recipe deleted" });
   } catch (err) {
-//    console.log("Erorr during deleting recipe ", err);
+    //    console.log("Erorr during deleting recipe ", err);
     res.status(500).json({ error: "An error occurred while deleting recipe" });
   }
 }
@@ -279,13 +279,13 @@ export async function likeRecipe(req, res) {
       { $addToSet: { likedRecipes: recipe._id } }
     );
     if (!recipe || !user) {
-//      console.log("Unable to like recipe");
+      //      console.log("Unable to like recipe");
       return res.status(400).json({ error: "Unable to like recipe" });
     }
-//    console.log("Recipe liked successfully");
+    //    console.log("Recipe liked successfully");
     res.status(200).json({ message: "Recipe liked" });
   } catch (err) {
-//    console.log("Erorr during liking recipe ", err);
+    //    console.log("Erorr during liking recipe ", err);
     res.status(500).json({ error: "An error occurred while liking recipe" });
   }
 }
@@ -304,13 +304,13 @@ export async function unlikeRecipe(req, res) {
       { $pull: { likedRecipes: recipe._id } }
     );
     if (!recipe || !user) {
-//      console.log("Unable to unlike recipe");
+      //      console.log("Unable to unlike recipe");
       return res.status(400).json({ error: "Unable to unlike recipe" });
     }
-//    console.log("Recipe unliked successfully");
+    //    console.log("Recipe unliked successfully");
     res.status(200).json({ message: "Recipe unliked" });
   } catch (err) {
-//    console.log("Erorr during unliking recipe ", err);
+    //    console.log("Erorr during unliking recipe ", err);
     res.status(500).json({ error: "An error occurred while unliking recipe" });
   }
 }
@@ -318,7 +318,7 @@ export async function unlikeRecipe(req, res) {
 export async function commentRecipe(req, res) {
   const { id } = req.params;
   const { text } = req.body;
-//  console.log(text);
+  //  console.log(text);
   const user_id = getDecodedUserToken(req.headers.authorization)._id;
   if (!text) return res.status(400).json({ error: "Comment is required" });
   try {
@@ -327,14 +327,14 @@ export async function commentRecipe(req, res) {
       { $push: { comments: { user: user_id, text: text } } }
     );
     if (!recipe) {
-//      console.log("Recipe not found");
+      //      console.log("Recipe not found");
       return res.status(400).json({ error: "Recipe not found" });
     }
 
-//    console.log("Recipe commented successfully");
+    //    console.log("Recipe commented successfully");
     res.status(200).json({ message: "Recipe commented" });
   } catch (err) {
-//    console.log("Erorr during commenting recipe ", err);
+    //    console.log("Erorr during commenting recipe ", err);
     res
       .status(500)
       .json({ error: "An error occurred while commenting recipe" });
@@ -354,15 +354,15 @@ export async function deleteComment(req, res) {
       { $pull: { comments: { commentId: comment_id, user: user_id } } }
     );
     if (!recipe) {
-//      console.log("Recipe or comment with this user not found");
+      //      console.log("Recipe or comment with this user not found");
       return res
         .status(400)
         .json({ error: "Recipe or comment with this user not found" });
     }
-//    console.log("Comment deleted successfully");
+    //    console.log("Comment deleted successfully");
     res.status(200).json({ message: "Comment deleted" });
   } catch (err) {
-//    console.log("Erorr during deleting comment ", err);
+    //    console.log("Erorr during deleting comment ", err);
     res.status(500).json({ error: "An error occurred while deleting comment" });
   }
 }
@@ -411,16 +411,16 @@ export async function generateAndSaveRecipe(req, res) {
       ];
     }
 
-//    console.log("generating and saving recipes", titles);
+    //    console.log("generating and saving recipes", titles);
     const recipes = [];
     for (const t of titles) {
       try {
         const recipe = await getChatGptResponse(t);
         const { title, description, ingredients, steps, time, serves } =
           recipe.content;
-//        console.log("Recipe found? ", recipe.found);
+        //        console.log("Recipe found? ", recipe.found);
         if (recipe.found) {
-//          console.log("Generated recipe", { title, description });
+          //          console.log("Generated recipe", { title, description });
           recipes.push(recipe);
           const recipeObj = {
             content: {
@@ -445,7 +445,7 @@ export async function generateAndSaveRecipe(req, res) {
           );
         }
       } catch (err) {
-//        console.log(err);
+        //        console.log(err);
       }
     }
 
@@ -456,7 +456,7 @@ export async function generateAndSaveRecipe(req, res) {
     });
   } catch (err) {
     // Handle any errors that occurred during the process
-//    console.log(err);
+    //    console.log(err);
     res.status(500).json({ error: "Internal server error" });
   }
 }
